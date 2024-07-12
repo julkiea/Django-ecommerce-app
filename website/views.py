@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -89,3 +89,12 @@ def register_user(request):
         return render(request, 'register_user.html', {'form':form})
 
     return render(request, 'register_user.html', {'form': form})
+
+
+def product(request, pk):
+    try:
+        product = get_object_or_404(Product, id=pk)
+        return render(request, "product.html", {'product': product})
+    except Product.DoesNotExist:
+        messages.error(request, "Product does not exist...")
+        return render(request, "home.html")
