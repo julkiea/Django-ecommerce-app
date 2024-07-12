@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<ul class="nav nav-tabs">
+    <li class="nav-item ms-auto">
+      <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#">Cart</a>
+    </li>
+</ul>
+
+
 {% if product.is_on_sale %}
 <div class="card mb-3" style="max-width: 1500px;">
     <div class="row g-0">
@@ -27,7 +37,11 @@
                 <br>
 
                 <div class="d-grid gap-2">
-                    <button class="btn btn-success" type="button">Add to cart</button>
+                    <button class="btn btn-success" type="button">
+                        <i class="bi-cart-fill me-1">
+                        </i>
+                        Add to cart
+                    </button>
                 </div>
             </div>
         </div>
@@ -36,11 +50,12 @@
 
                 <h6 class="card-title">Description: </h6>
                 <p class="card-text">{{ product.description }}</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+
             </div>
         </div>
     </div>
 </div>
+
 
   {% else %}
   <div class="card mb-3" style="max-width: 1500px;">
@@ -60,7 +75,11 @@
           <br>
           <br>
           <div class="d-grid gap-2">
-            <button class="btn btn-success" type="button">Add to cart</button>
+            <button class="btn btn-success" type="button">
+                <i class="bi-cart-fill me-1">
+                </i>
+                Add to cart
+            </button>
             </div>
         </div>
     </div>
@@ -71,11 +90,18 @@
     
                     <h6 class="card-title">Description: </h6>
                     <p class="card-text">{{ product.description }}</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+
                 </div>
             </div>
 
   </div>
   {% endif %}
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  
 
 {% endblock %}
