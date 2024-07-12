@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if product.is_on_sale %}
+<div class="card mb-3" style="max-width: 1500px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">SALE</div>
+                <h3 class="card-title">{{ product.name }}</h3>
+                <hr>
+                <p class="card-text">
+                    <strike>
+                        ${{ product.price }}
+                    </strike>
+                    &nbsp;
+                    ${{ product.sale_price }}
+                </p>
+                <p class="card-text">Category: <span class="badge text-bg-secondary">{{ product.category }}</span></p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success" type="button">Add to cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card-body">
+
+                <h6 class="card-title">Description: </h6>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+  {% else %}
+  <div class="card mb-3" style="max-width: 1500px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title">{{ product.name }}</h3>
+          <hr>
+          <p class="card-text">${{ product.price }}</p>
+          <p class="card-text">Category: <span class="badge text-bg-secondary">{{product.category}}</span></p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="d-grid gap-2">
+            <button class="btn btn-success" type="button">Add to cart</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+            <div class="col-md-12">
+                <div class="card-body">
+    
+                    <h6 class="card-title">Description: </h6>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+
+  </div>
+  {% endif %}
+
+{% endblock %}
