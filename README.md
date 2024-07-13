@@ -6,3 +6,4 @@ This project is an e-commerce platform built with Django. Please note that this 
 - About us section
 - User registration and login
 - Product's details
+- Category pages
