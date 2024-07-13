@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
@@ -97,4 +97,18 @@ def product(request, pk):
         return render(request, "product.html", {'product': product})
     except Product.DoesNotExist:
         messages.error(request, "Product does not exist...")
-        return render(request, "home.html")
+        return redirect('home')
+    
+    
+
+def category(request, foo):
+    foo = foo.replace('-', ' ')
+    try:
+        category = Category.objects.get(name= foo)
+        products = Product.objects.filter(category = category)
+        return render(request, "category.html", {'products': products, 'category': category})
+    except:
+        messages.error(request, "There is no product with this category...")
+        return redirect('home')
+
+
