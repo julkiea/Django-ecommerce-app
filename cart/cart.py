@@ -1,3 +1,5 @@
+from website.models import Product
+
 class Cart():
     def __init__(self, request):
         self.session = request.session
@@ -29,3 +31,10 @@ class Cart():
     # Get the quantity of products in cart
     def __len__(self):
         return len(self.cart)
+    
+    # Get the products from the cart
+    def get_cart_products(self):
+        product_ids = self.cart.keys()
+
+        products = Product.object.filter(id_in =product_ids)
+        return products
