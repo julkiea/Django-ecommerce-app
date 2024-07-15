@@ -9,5 +9,31 @@
         </div>
     </div>
 </header>
+<br>
+{% if cart_products %}
+{% for product in cart_products %}
+<div class="card mb-3" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">Category: <span class="badge text-bg-secondary">{{ product.category }}</span></p>
+          {% if product.is_on_sale%}
+          <p class="card-text">Price: <strike>{{ product.price }}</strike> &nbsp; {{ product.sale_price }}</p>
+          {% else %}
+          <p class="card-text">Price: {{ product.price }}</p>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% else %}
+There is nothing in your cart...
+{% endif %}
 <br><br><br><br><br><br><br><br><br>
 {% endblock %}
