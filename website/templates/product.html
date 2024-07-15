@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<br>
 <ul class="nav nav-tabs">
     <li class="nav-item ms-auto">
       <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
@@ -11,7 +12,7 @@
 </ul>
 
 
-{% if product.is_on_sale %}
+
 <div class="card mb-3" style="max-width: 1500px;">
     <div class="row g-0">
         <div class="col-md-4">
@@ -22,6 +23,7 @@
                 <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">SALE</div>
                 <h3 class="card-title">{{ product.name }}</h3>
                 <hr>
+                {% if product.is_on_sale %}
                 <p class="card-text">
                     <strike>
                         ${{ product.price }}
@@ -29,6 +31,10 @@
                     &nbsp;
                     ${{ product.sale_price }}
                 </p>
+                {% else %}
+                <p class="card-text">${{ product.price }}</p>
+                {% endif %}
+                
                 <p class="card-text">Category: <span class="badge text-bg-secondary">{{ product.category }}</span></p>
                 <br>
                 <br>
@@ -37,7 +43,7 @@
                 <br>
 
                 <div class="d-grid gap-2">
-                    <button class="btn btn-success" type="button">
+                    <button type="button" value = "{{ product.id }}" class="btn btn-success" id = "add_cart">
                         <i class="bi-cart-fill me-1">
                         </i>
                         Add to cart
@@ -57,45 +63,7 @@
 </div>
 
 
-  {% else %}
-  <div class="card mb-3" style="max-width: 1500px;">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h3 class="card-title">{{ product.name }}</h3>
-          <hr>
-          <p class="card-text">${{ product.price }}</p>
-          <p class="card-text">Category: <span class="badge text-bg-secondary">{{product.category}}</span></p>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <div class="d-grid gap-2">
-            <button class="btn btn-success" type="button">
-                <i class="bi-cart-fill me-1">
-                </i>
-                Add to cart
-            </button>
-            </div>
-        </div>
-    </div>
-  </div>
-
-            <div class="col-md-12">
-                <div class="card-body">
-    
-                    <h6 class="card-title">Description: </h6>
-                    <p class="card-text">{{ product.description }}</p>
-
-                </div>
-            </div>
-
-  </div>
-  {% endif %}
+  
 
   <br>
   <br>
@@ -103,5 +71,41 @@
   <br>
   <br>
   
+
+  <script>
+    // Check if button pressed
+    $(document).on('click', '#add_cart', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart_add" %}',
+            data: {
+        product_id: $('#add_cart').val(),
+        product_qty: $('#qty-cart option:selected').text(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+            },
+    
+            success: function(json){
+                //console.log(json)
+                document.getElementById("cart_quantity").textContent = json.qty
+                location.reload();
+            },
+    
+            error: function(xhr, errmsg, err){
+    
+            }
+    
+    
+        });
+    
+    
+    
+    })
+    
+    
+    
+    
+    </script>
 
 {% endblock %}
