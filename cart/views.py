@@ -23,7 +23,7 @@ def cart_add(request):
         product_id = int(request.POST.get('product_id'))
 
         # Get a product quantity 
-        product_quantity = int(request.POST.get('product_quantity'))
+        product_quantity = int(request.POST.get('product_qty'))
 
         # Get a product 
         product = get_object_or_404(Product, id = product_id)
