@@ -94,7 +94,7 @@
             url: '{% url "cart_add" %}',
             data: {
         product_id: $('#add_cart').val(),
-        product_qty: $('#qty-cart option:selected').text(),
+        product_qty: $('#quantity_cart option:selected').text(),
         csrfmiddlewaretoken: '{{ csrf_token }}',
         action: 'post'
             },
