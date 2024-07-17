@@ -22,11 +22,14 @@ def cart_add(request):
         # Get a product id
         product_id = int(request.POST.get('product_id'))
 
+        # Get a product quantity 
+        product_quantity = int(request.POST.get('product_quantity'))
+
         # Get a product 
         product = get_object_or_404(Product, id = product_id)
         
         # Save to a session
-        cart.add(product = product)
+        cart.add(product = product, quantity = product_quantity)
 
         # Get cart quantity 
         cart_quantity = cart.__len__()
