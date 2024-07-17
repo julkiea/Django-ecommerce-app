@@ -15,16 +15,20 @@ class Cart():
         self.cart = cart
 
     # Create add method
-    def add(self, product):
+    def add(self, product, quantity):
 
         # Get a product id
         product_id = str(product.id)
+
+        # Get a product quantity 
+        product_quantity = str(quantity)
 
         # If product already in cart
         if product_id in self.cart:
             pass
         else:
-            self.cart[product_id] = {'price': str(product.price)}
+            #self.cart[product_id] = {'price': str(product.price)}
+            self.cart[product_id] = int(product_quantity)
 
         self.session.modified = True
 
