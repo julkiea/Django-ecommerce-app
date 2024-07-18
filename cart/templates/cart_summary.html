@@ -27,11 +27,15 @@
           <p class="card-text">Price: {{ product.price }}</p>
           {% endif %}
           <div class = "row justify-content">
-            <div class = "col-md-2">Quantity</div>
+            <div class = "col-md-2">Quantity:</div>
               <div class = "col-md-2">
-                <br>
-                <select class="form-select" id = "quantity_cart">
-            
+                
+                <select class="form-select" id = "select{{ product.id }}">
+            {% for key, value in quantities.items %}
+                  {% if key == product.if|slugify %}
+                    <option selected>{{ value }}</option>
+                  {% endif %}
+            {% endfor %}
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -43,6 +47,9 @@
                   </select>
               </div>
             </div>
+            <br>
+            <a href="{% url 'home' %}" class = "btn btn-success">Home</a>
+            <button type = "button", data-index = "{{ product.id }}" class = "btn btn-success update-cart"> Update </button>
         </div>
       </div>
     </div>
@@ -53,3 +60,36 @@ There is nothing in your cart...
 {% endif %}
 <br><br><br><br><br><br><br><br><br>
 {% endblock %}
+
+
+<script>
+    $(document).on('click', '.update-cart', function(e){
+        e.preventDefault();
+        var productid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart_update" %}',
+            data: {
+        product_id: $(this).data('index'),
+        product_qty: $('#select' + productid + ' option:selected').text(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+            },
+    
+            success: function(json){
+              //console.log(json)
+              //document.getElementById("cart_quantity").textContent = json.qty
+              location.reload();
+            },
+    
+            error: function(xhr, errmsg, err){
+    
+            }
+    
+    
+        });
+    
+    
+    
+    })
+</script>
