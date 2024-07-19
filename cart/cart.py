@@ -69,3 +69,25 @@ class Cart():
         # Get updated cart
         updated_cart = self.cart
         return updated_cart
+
+    def delete_product(self, product):
+        # Get a id 
+        product_id = str(product)
+
+        # Get a cart
+        cart = self.cart
+
+        # If product in cart
+        if product_id in cart:
+
+            # Delete product from cart/dictionary
+            del cart[product_id]
+
+        
+        # Modify session 
+        self.session.modified = True
+
+        # Get updated cart
+        updated_cart = self.cart
+        
+        return updated_cart
