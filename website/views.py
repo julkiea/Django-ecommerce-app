@@ -6,7 +6,8 @@ from .forms import SignUpForm
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'home.html', {'products': products})
+    categories = Category.objects.all()
+    return render(request, 'home.html', {'products': products, 'categories': categories})
 
 
 def about_us(request):
@@ -100,7 +101,7 @@ def product(request, pk):
         return redirect('home')
     
     
-
+"""
 def category(request, foo):
     foo = foo.replace('-', ' ')
     try:
@@ -111,4 +112,15 @@ def category(request, foo):
         messages.error(request, "There is no product with this category...")
         return redirect('home')
 
+"""
+def filter_products(request):
+        
+    products = Product.objects.all()
+
+    category_name = request.GET.get('category')
+
+    if category_name:
+        products = products.filter(category__name=category_name)
+
+    return render(request, 'home.html', {'products': products})
 
