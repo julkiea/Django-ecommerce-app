@@ -11,8 +11,9 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'home' %}">All Products</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'book' %}">Books</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        {% for category in categories %}
+                        <li><a class="dropdown-item" href="{% url 'filter_products' %}?category={{ category }}">{{category}}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
             </ul>
