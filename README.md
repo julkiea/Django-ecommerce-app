@@ -7,3 +7,4 @@ This project is an e-commerce platform built with Django. Please note that this 
 - User registration and login
 - Product's details
 - Category pages
+- Adding products to cart and update quantity of product in cart
