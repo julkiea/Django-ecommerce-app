@@ -63,7 +63,7 @@ def cart_update(request):
         # Get a product quantity 
         product_quantity = int(request.POST.get('product_qty'))
         
-        cart.update(product = product_id, quantity = product_quantity)
+        cart.update(product=product_id, quantity=product_quantity)
 
         response = JsonResponse({'quantity': product_quantity})
-        return redirect('cart_summary')
+        return response
