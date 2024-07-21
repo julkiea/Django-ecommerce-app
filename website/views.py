@@ -118,9 +118,9 @@ def filter_products(request):
     products = Product.objects.all()
 
     category_name = request.GET.get('category')
-
+    categories = Category.objects.all()
     if category_name:
         products = products.filter(category__name=category_name)
 
-    return render(request, 'home.html', {'products': products})
+    return render(request, 'home.html', {'products': products, 'categories': categories})
 
