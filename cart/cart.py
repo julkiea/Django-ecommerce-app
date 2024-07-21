@@ -91,3 +91,26 @@ class Cart():
         updated_cart = self.cart
         
         return updated_cart
+    
+    def cart_total(self):
+        # Get products' ids
+        product_ids = self.cart.keys()
+
+        # Get product with those ids
+        products = Product.objects.filter(id__in= product_ids)
+
+        # Get a cart {"4": 1, "5": 2} - "product id": product quantity
+        cart = self.cart
+
+        # Count totals
+        totals = 0
+        for key, value in cart.items():
+            key = int(key)
+            for product in products:
+                if product.id == key:
+                    if product.is_on_sale:
+                        totals = totals + (product.sale_price * value)
+                    else:
+                        totals = totals + (product.price * value)
+
+        return totals
