@@ -10,6 +10,20 @@
                 </div>
             </div>
         </header>
+        <ul class="nav nav-tabs nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">All products</a>
+            </li>
+            {% for category in categories %}
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'filter_products' %}?category={{ category }}">{{category}}</a>
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
