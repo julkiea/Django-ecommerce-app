@@ -64,7 +64,7 @@
     <a href="{% url 'home'%}" class="btn btn-secondary">Home</a>
 
     <!-- Update button -->
-    <button type="button" data-index="{{product.id}}" class="btn btn-secondary update-cart">Update</button>
+    <button type="button" data-index="{{product.id}}" class="btn btn-secondary update-cart">Update product quantity</button>
 
     <!-- Delete button -->
     <button type="button" data-index="{{product.id}}" class="btn btn-danger delete-product">Delete</button>
@@ -76,6 +76,9 @@
 
 
       {% endfor %}
+      <br>
+      <h2>Total: ${{ totals }} </h2>
+      <br><br><br>
       {% else %}
       There's Nothing In Your Cart...
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
