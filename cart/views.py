@@ -13,7 +13,10 @@ def cart_summary(request):
 
     # Get cart products
     cart_products = cart.get_cart_products
-    return render(request, "cart_summary.html", {"cart_products": cart_products, "quantities": quantities})
+
+    # Get totals
+    totals = cart.cart_total()
+    return render(request, "cart_summary.html", {"cart_products": cart_products, "quantities": quantities, "totals": totals})
 
 def cart_add(request):
     # Get a cart
@@ -37,6 +40,7 @@ def cart_add(request):
         # Get cart quantity 
         cart_quantity = cart.__len__()
 
+        messages.success(request, "Product has been successfully added to your cart...")
         # Get a response 
         response = JsonResponse({'quantity': cart_quantity})
         return response
@@ -60,7 +64,7 @@ def cart_delete(request):
         cart.delete_product(product = product_id)
 
         response = JsonResponse({'product': product_id})
-        messages.success(request, "Product has been removed from your cart...")
+        messages.success(request, "Product has been successfully removed from your cart...")
         return response
 
 def cart_update(request):
@@ -78,5 +82,6 @@ def cart_update(request):
         
         cart.update(product=product_id, quantity=product_quantity)
 
+        messages.success(request, "Quantity of the product has been successfully changed...")
         response = JsonResponse({'quantity': product_quantity})
         return response
