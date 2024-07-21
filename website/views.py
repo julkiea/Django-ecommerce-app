@@ -124,3 +124,5 @@ def filter_products(request):
 
     return render(request, 'home.html', {'products': products, 'categories': categories})
 
+def update_user(request):
+    return render(request, "update_user.html", {})
