@@ -8,3 +8,6 @@ This project is an e-commerce platform built with Django. Please note that this 
 - Product's details
 - Category pages
 - Adding products to cart and update quantity of product in cart
+- Deleting products from cart
+- Counting cart total
+- Updating user profile
