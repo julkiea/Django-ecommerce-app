@@ -10,5 +10,5 @@ urlpatterns = [
     path('product/<int:pk>', views.product, name = 'product'),
     #path('category/<str:foo>', views.category, name = 'category'),
     path('filter_products/', views.filter_products, name = 'filter_products'),
-    path('update/user/', views.update_user, name = 'update_user'),
+    path('update_user/', views.update_user, name = 'update_user'),
 ]
