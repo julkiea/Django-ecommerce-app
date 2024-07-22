@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm
+from django.contrib.auth.models import User
 
 def home(request):
     products = Product.objects.all()
@@ -125,4 +126,13 @@ def filter_products(request):
     return render(request, 'home.html', {'products': products, 'categories': categories})
 
 def update_user(request):
-    return render(request, "update_user.html", {})
+    if request.user.is_authenticated:
+        user = User.objects.get(id = request.user.id)
+
+        form = UpdateUserForm(request.POST or None, instance = user)
+        if form.is_valid():
+            form.save()
+            login(request, user)
+            messages.success(request, "Your profile has been updated...")
+            return redirect('home')
+    return render(request, "update_user.html", {'form':form})
