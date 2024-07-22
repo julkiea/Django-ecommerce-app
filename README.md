@@ -1,5 +1,5 @@
 # Django E-commerce Application 🛒
-This project is an e-commerce platform built with Django. Please note that this application is currently under development and not all features are implemented yet.
+This project is an e-commerce platform built with Django & Python. Please note that this application is currently under development and not all features are implemented yet.
 
 ## Features ✨
 - Product listing
@@ -11,3 +11,5 @@ This project is an e-commerce platform built with Django. Please note that this 
 - Deleting products from cart
 - Counting cart total
 - Updating user profile
+
+## Installation 🔧
