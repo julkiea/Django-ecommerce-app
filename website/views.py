@@ -135,4 +135,7 @@ def update_user(request):
             login(request, user)
             messages.success(request, "Your profile has been updated...")
             return redirect('home')
-    return render(request, "update_user.html", {'form':form})
+        return render(request, "update_user.html", {'form':form})
+    else:
+        messages.success(request, "You must be logged in...")
+        return redirect('home')
