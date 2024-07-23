@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm, UpdateUserForm
+from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm
 from django.contrib.auth.models import User
 
 def home(request):
@@ -44,7 +44,7 @@ def login_user(request):
             messages.success(request, "An error occurred while logging in, please try again!")
             
             # Redirect home
-            return redirect('home')
+            return redirect('login_user')
 
     return render(request, "login_user.html")
 
@@ -136,6 +136,29 @@ def update_user(request):
             messages.success(request, "Your profile has been updated...")
             return redirect('home')
         return render(request, "update_user.html", {'form':form})
+    else:
+        messages.success(request, "You must be logged in...")
+        return redirect('home')
+    
+
+def update_password(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(id = request.user.id)
+        if request.method == "POST":
+            form = UpdatePasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Your password has been changed!")
+                login(request, user)
+                return redirect('home')
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request, error)
+                return redirect('update_password')
+
+        else:
+            form = UpdatePasswordForm(user)
+            return render(request, "update_password.html", {"form": form})
     else:
         messages.success(request, "You must be logged in...")
         return redirect('home')
