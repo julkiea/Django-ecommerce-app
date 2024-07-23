@@ -6,9 +6,9 @@ from django import forms
 # Creating UpdateUserForm
 class UpdateUserForm(UserChangeForm):
     password = None
-    email = forms.EmailField(label="", widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email address: '}))
-    first_name = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First name: '}))
-    last_name = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last name: '}))
+    email = forms.EmailField(label="Email", widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email address: '}))
+    first_name = forms.CharField(label="First Name", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First name: '}))
+    last_name = forms.CharField(label="Last Name", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last name: '}))
     
     class Meta():
             model = User
@@ -19,7 +19,7 @@ class UpdateUserForm(UserChangeForm):
 
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
-        self.fields['username'].label = ''
+        self.fields['username'].label = 'Username'
         self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
         
 
