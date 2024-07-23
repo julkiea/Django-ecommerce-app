@@ -1,6 +1,7 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg bg-success" data-bs-theme="light">
     <div class="container">
-        <a class="navbar-brand" href="#!">MyStore</a>
+        <a class="navbar-brand" href="#!"><img src="{% static 'images/mis.png' %}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">YarnieFriends</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -18,13 +19,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <form class="d-flex">
-                <a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill" id = "cart_quantity">{{ cart|length }}</span></a>
-
-            </form>
-            {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bars"></i></a>
@@ -32,6 +27,8 @@
                         <li><a class="dropdown-item" href="{% url 'logout_user' %}">Log out</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="{% url 'update_user' %}">Update account</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="{% url 'update_password' %}">Update password </a></li>
                         <li><hr class="dropdown-divider" /></li>
 
                     </ul>
@@ -53,6 +50,13 @@
 
             
             {% endif %}
+            <form class="d-flex">
+                <a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id = "cart_quantity">{{ cart|length }}</span></a>
+
+            </form>
+            
         </ul>
         </div>
     </div>
