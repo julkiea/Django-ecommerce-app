@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UserInfoForm
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 def home(request):
     products = Product.objects.all()
@@ -180,4 +181,13 @@ def update_info(request):
     
 
 def search(request):
-    return render(request, "search.html", {})
+    if request.method == "POST":
+        searched = request.POST["searched"]
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+        if not searched:
+            messages.success(request, "Product you've searched for doesn't exist... Please try again.")
+            return render(request, "search.html", {})
+        else:
+            return render(request, "search.html", {"searched": searched})
+    else:
+        return render(request, "search.html", {})
