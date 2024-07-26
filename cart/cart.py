@@ -1,8 +1,9 @@
-from website.models import Product
+from website.models import Product, UserProfile
 
 class Cart():
     def __init__(self, request):
         self.session = request.session
+        self.request = request
 
         # Get the current session key if it exists
         cart = self.session.get('session_key')
@@ -31,6 +32,15 @@ class Cart():
             self.cart[product_id] = int(product_quantity)
 
         self.session.modified = True
+
+        # Deal with logged in user
+        if self.request.user.is_authenticated:
+            current_user = UserProfile.objects.filter(user__id = self.request.user.id)
+            cart = str(self.cart)
+            cart = cart.replace("\'", "\"")
+            current_user.update(old_cart = cart)
+        else:
+            pass
 
     # Get the quantity of products in cart
     def __len__(self):
