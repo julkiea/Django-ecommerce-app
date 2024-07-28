@@ -12,5 +12,6 @@ This project is an e-commerce platform built with Django & Python. Please note t
 - Counting cart total
 - Updating user profile
 - Updating user password
+- Searching products
 
 ## Installation 🔧
