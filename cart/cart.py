@@ -42,6 +42,33 @@ class Cart():
         else:
             pass
 
+    def database_add(self, product, quantity):
+        # Get a product id
+        product_id = str(product)
+
+        # Get a product quantity 
+        product_quantity = str(quantity)
+
+        # If product already in cart
+        if product_id in self.cart:
+            pass
+        else:
+            #self.cart[product_id] = {'price': str(product.price)}
+            self.cart[product_id] = int(product_quantity)
+
+        self.session.modified = True
+
+        # Deal with logged in user
+        if self.request.user.is_authenticated:
+            current_user = UserProfile.objects.filter(user__id = self.request.user.id)
+            cart = str(self.cart)
+            cart = cart.replace("\'", "\"")
+            current_user.update(old_cart = cart)
+        else:
+            pass
+    
+
+
     # Get the quantity of products in cart
     def __len__(self):
         return len(self.cart)
@@ -76,6 +103,16 @@ class Cart():
         # Modify session 
         self.session.modified = True
 
+
+
+        if self.request.user.is_authenticated:
+            current_user = UserProfile.objects.filter(user__id = self.request.user.id)
+            cart = str(self.cart)
+            cart = cart.replace("\'", "\"")
+            current_user.update(old_cart = cart)
+        else:
+            pass
+        
         # Get updated cart
         updated_cart = self.cart
         return updated_cart
@@ -99,8 +136,16 @@ class Cart():
 
         # Get updated cart
         updated_cart = self.cart
-        
+            
+        if self.request.user.is_authenticated:
+            current_user = UserProfile.objects.filter(user__id = self.request.user.id)
+            cart = str(self.cart)
+            cart = cart.replace("\'", "\"")
+            current_user.update(old_cart = cart)
+        else:
+            pass
         return updated_cart
+    
     
     def cart_total(self):
         # Get products' ids
