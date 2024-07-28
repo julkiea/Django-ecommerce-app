@@ -5,6 +5,8 @@ from django.contrib import messages
 from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UserInfoForm
 from django.contrib.auth.models import User
 from django.db.models import Q
+import json
+from cart.cart import Cart
 
 def home(request):
     products = Product.objects.all()
@@ -31,6 +33,14 @@ def login_user(request):
             
             # Logging in 
             login(request, user)
+
+            current_user = UserProfile.objects.get(user__id = request.user.id)
+            saved_cart = current_user.old_cart
+            if saved_cart:
+                converted_cart = json.loads(saved_cart)
+                cart = Cart(request)
+                for key, value in converted_cart.items():
+                    cart.database_add(product = key, quantity = value)
 
             # Displaying message 
             messages.success(request, "You have been logged in successfully!")
