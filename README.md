@@ -19,7 +19,7 @@ This project is an e-commerce platform built with Django & Python. Please note t
 1. Clone the repository:
    
     ```bash
-    git clone 
+    git clone https://github.com/julkiea/Django-ecommerce-app.git
     cd Django-to-do-site
     ```
 
