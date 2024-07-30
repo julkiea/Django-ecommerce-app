@@ -20,7 +20,7 @@ This project is an e-commerce platform built with Django & Python. Please note t
    
     ```bash
     git clone https://github.com/julkiea/Django-ecommerce-app.git
-    cd Django-to-do-site
+    cd Django-ecommerceapp
     ```
 
 2. Install `virtualenv`:
